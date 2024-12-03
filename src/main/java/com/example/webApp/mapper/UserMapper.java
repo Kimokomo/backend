@@ -31,7 +31,7 @@ public interface UserMapper {
     @Named("genderToString")
     default String genderToString(Gender gender) {
         if (gender == null) return null;
-        return gender.getDisplayName(); // Using displayName from Gender enum
+        return gender.getDisplayName();
     }
 
     @Named("stringToGender")
@@ -51,7 +51,7 @@ public interface UserMapper {
 
     @Named("parseDateOfBirth")
     default LocalDate parseDateOfBirth(String dateOfBirth) {
-        if (dateOfBirth == null || dateOfBirth.trim().isEmpty()) return null; // Check for null or empty string
+        if (dateOfBirth == null || dateOfBirth.trim().isEmpty()) return null;
         return LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 }
