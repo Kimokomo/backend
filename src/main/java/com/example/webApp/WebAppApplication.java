@@ -3,9 +3,6 @@ package com.example.webApp;
 import com.example.webApp.model.Gender;
 import com.example.webApp.model.User;
 import com.example.webApp.repositories.UserRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -54,6 +51,6 @@ public class WebAppApplication implements CommandLineRunner {
         );
 
         // Close the repository (this will close EntityManagerFactory)
-        userRepository.close();
+       // userRepository.close();
     }
 }
