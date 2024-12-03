@@ -2,7 +2,6 @@ package com.example.webApp;
 
 import com.example.webApp.dtos.UserDTO;
 import com.example.webApp.mapper.UserMapper;
-import com.example.webApp.model.Gender;
 import com.example.webApp.model.User;
 import com.example.webApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +9,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-
 @SpringBootApplication
 public class WebAppApplication implements CommandLineRunner {
 
     @Autowired
     UserRepository userRepository;
     @Autowired
-    private UserMapper userMapper;  // Inject the UserMapper
+    private UserMapper userMapper;
 
     public static void main(String[] args) {
         SpringApplication.run(WebAppApplication.class, args);

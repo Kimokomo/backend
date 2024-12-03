@@ -28,14 +28,12 @@ public interface UserMapper {
         return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
-    // Custom conversion method to convert Gender enum to string
     @Named("genderToString")
     default String genderToString(Gender gender) {
         if (gender == null) return null;
         return gender.getDisplayName(); // Using displayName from Gender enum
     }
 
-    // Custom conversion method to convert string back to Gender enum
     @Named("stringToGender")
     default Gender stringToGender(String genderDisplayName) {
         if (genderDisplayName == null) return null;
@@ -51,7 +49,6 @@ public interface UserMapper {
         }
     }
 
-    // Custom conversion method to convert a date string to LocalDate
     @Named("parseDateOfBirth")
     default LocalDate parseDateOfBirth(String dateOfBirth) {
         if (dateOfBirth == null || dateOfBirth.trim().isEmpty()) return null; // Check for null or empty string

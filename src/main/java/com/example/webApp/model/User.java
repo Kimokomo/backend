@@ -21,7 +21,7 @@ public class User {
     @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", allocationSize = 1)
     private Long id;
 
-    @Column(name = "first_name", nullable = false, length = 50) // Spaltenzuordnung in der DB
+    @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 50)

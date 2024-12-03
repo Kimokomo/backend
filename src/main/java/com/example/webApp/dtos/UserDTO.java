@@ -12,8 +12,8 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private int age;
-    private String gender; // This will store the `displayName`
-    private String dateOfBirth; // Format: "dd.MM.yyyy""
+    private String gender;
+    private String dateOfBirth;
     private boolean status;
 
 
