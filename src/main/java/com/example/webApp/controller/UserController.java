@@ -1,7 +1,6 @@
 package com.example.webApp.controller;
 
 import com.example.webApp.dtos.UserDTO;
-import com.example.webApp.model.User;
 import com.example.webApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
