@@ -1,34 +1,78 @@
 package com.example.webApp.repositories;
 
 import com.example.webApp.model.User;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepository {
 
-    private final List<User> users = new ArrayList<>();
+    private final EntityManagerFactory emf;
+    private EntityManager em;
 
     public UserRepository() {
-//        users.add(User.builder().id(1L).firstName("Alice").lastName("Wonderland").age(25).gender(Gender.FEAMLE).status(true).dateOfBirth(LocalDate.now()).build());
-//        users.add(User.builder().id(2L).firstName("Baumeister").lastName("Bob").age(30).gender(Gender.MALE).status(false).build());
-//        users.add(User.builder().id(3L).firstName("Charlie").lastName("Cheen").age(35).gender(Gender.MALE).status(true).build());
-//        users.add(User.builder().id(4L).firstName("Slice").lastName("Kimbo").age(26).gender(Gender.OTHER).status(false).build());
-//        users.add(User.builder().id(5L).firstName("Mohamed").lastName("Yassin").age(26).gender(Gender.MALE).status(true).build());
-//        users.add(User.builder().id(6L).firstName("Atef").lastName("Farghal").age(26).gender(Gender.MALE).status(true).build());
-//        users.add(User.builder().id(7L).firstName("Mona").lastName("Osman").age(26).gender(Gender.FEAMLE).status(false).build());
-//        users.add(User.builder().id(8L).firstName("Slice").lastName("Kimbo").age(26).gender(Gender.MALE).status(true).build());
-//        users.add(User.builder().id(9L).firstName("Dina").lastName("Yassin").age(27).gender(Gender.FEAMLE).status(false).build());
-//        users.add(User.builder().id(10L).firstName("Abdallah").lastName("Radwan").age(28).gender(Gender.MALE).status(true).build());
-//        users.add(User.builder().id(11L).firstName("Elias").lastName("Radwan").age(1).gender(Gender.MALE).status(true).build());
-//        users.add(User.builder().id(12L).firstName("Noah").lastName("Radwan").age(4).gender(Gender.MALE).status(true).build());
-//        System.out.println();
+        // Create an EntityManagerFactory
+        this.emf = Persistence.createEntityManagerFactory("myJpaUnit");
     }
 
-    public List<User> getAllUsers() {
+    private EntityManager getEntityManager() {
+        if (em == null || !em.isOpen()) {
+            em = emf.createEntityManager();
+        }
+        return em;
+    }
 
-        return users;
+    // Start a transaction
+    public void startTransaction() {
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+    }
+
+    // Commit the transaction
+    public void commitTransaction() {
+        EntityManager em = getEntityManager();
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().commit();
+        }
+    }
+
+    // Save a User entity
+    public void save(User user) {
+        startTransaction();  // Start the transaction
+        try {
+            em.persist(user);  // Save the entity
+            commitTransaction();  // Commit the transaction
+        } catch (Exception e) {
+            em.getTransaction().rollback();  // Rollback if any error occurs
+            e.printStackTrace();
+        } finally {
+            em.close();  // Close the EntityManager after the transaction
+        }
+    }
+
+
+    // Get all users
+    public List<User> getAllUsers() {
+        EntityManager em = getEntityManager();
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+        return query.getResultList();
+    }
+
+    // Find by ID
+    public Optional<User> findById(Long id) {
+        EntityManager em = getEntityManager();
+        User user = em.find(User.class, id);
+        return Optional.ofNullable(user);
+    }
+
+    // Close the EntityManagerFactory
+    public void close() {
+        emf.close();
     }
 }
