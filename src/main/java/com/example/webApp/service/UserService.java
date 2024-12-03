@@ -3,10 +3,12 @@ package com.example.webApp.service;
 
 import com.example.webApp.dtos.UserDTO;
 import com.example.webApp.mapper.UserMapper;
+import com.example.webApp.model.User;
 import com.example.webApp.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 

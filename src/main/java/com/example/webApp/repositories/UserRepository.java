@@ -1,5 +1,6 @@
 package com.example.webApp.repositories;
 
+import com.example.webApp.dtos.UserDTO;
 import com.example.webApp.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -60,7 +61,7 @@ public class UserRepository {
     // Get all users
     public List<User> getAllUsers() {
         EntityManager em = getEntityManager();
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u ORDER BY u.id", User.class);
         return query.getResultList();
     }
 

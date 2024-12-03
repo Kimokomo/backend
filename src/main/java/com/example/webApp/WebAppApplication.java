@@ -1,5 +1,7 @@
 package com.example.webApp;
 
+import com.example.webApp.dtos.UserDTO;
+import com.example.webApp.mapper.UserMapper;
 import com.example.webApp.model.Gender;
 import com.example.webApp.model.User;
 import com.example.webApp.repositories.UserRepository;
@@ -17,6 +19,8 @@ public class WebAppApplication implements CommandLineRunner {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private UserMapper userMapper;  // Inject the UserMapper
 
     public static void main(String[] args) {
         SpringApplication.run(WebAppApplication.class, args);
@@ -25,32 +29,18 @@ public class WebAppApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        // Erstelle eine neue Entity
-        User user = User.builder()
+        UserDTO userDTO = UserDTO.builder()
                 .firstName("Kimbo")
                 .lastName("Slice")
                 .age(25)
-                .gender(Gender.MALE)
-                .status(false)
-                .dateOfBirth(LocalDate.now())
+                .gender("m")
+                .status(true)
+                .dateOfBirth("22.02.1998")
                 .build();
 
+        User user = userMapper.toEntity(userDTO);
+        System.out.println();
         userRepository.save(user);
 
-        // Get all users from the repository
-        List<User> users = userRepository.getAllUsers();
-        System.out.println("All users: " + users);
-
-
-        // Find a user by ID
-        Long userId = user.getId();  // Assuming the user was saved and has an ID
-        Optional<User> foundUser = userRepository.findById(userId);
-        foundUser.ifPresentOrElse(
-                u -> System.out.println("User found: " + u),
-                () -> System.out.println("User with ID " + userId + " not found.")
-        );
-
-        // Close the repository (this will close EntityManagerFactory)
-       // userRepository.close();
     }
 }
