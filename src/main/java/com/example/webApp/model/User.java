@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name = "person_user", schema = "slice") // Schema und Tabelle angeben
+@Table(name = "person_user", schema = "slice")
 @Entity
 public class User {
 
@@ -30,7 +30,7 @@ public class User {
     @Column(nullable = false)
     private int age;
 
-    @Enumerated(EnumType.STRING) // Wenn Gender als Enum gespeichert wird
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Gender gender;
 
